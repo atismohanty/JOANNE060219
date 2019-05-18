@@ -6,6 +6,8 @@ var mapadd;
 var activeInfoWin;
 var oppType =["opportunity","tagstore","estimate","alarm"];
 //alert("Script Loaded");
+//Work Order changed to emergency on request of Joanne 5/5/2019. Icon is not chnaged hence the same name.
+//Estimate Chnaged to Store Review on request of Joanne 5/17/2019. ICON reference is not changed hence the same name.
 if(navigator.onLine==false)
 {
 	document.getElementById("mapviewer").text = "System is offline. Not able to load the map.";
@@ -91,22 +93,22 @@ function initMap(info,paramlat,paramlng,paramzoom)
 	{
 		iconImg[i] = filePath + "TagStore.png";
 	}
-	else if(data[i].custtype=="Estimate")
+	else if(data[i].custtype=="Store Review")
 	{
 		iconImg[i] = filePath + "Estimate.png";
 	}
-	else if(data[i].custtype=="Work Order")
+	else if(data[i].custtype=="Emergency")
 	{
 		iconImg[i] = filePath + "WorkOrder.png";
 	}
-	else if(data[i].custtype=="Installation")
-	{
-		iconImg[i] = filePath + "Installation.png";
-	}
-	else if(data[i].custtype=="Successful Delivery")
-	{
-		iconImg[i] = filePath + "Delivery.png";
-	}
+	// else if(data[i].custtype=="Installation")
+	// {
+	// 	iconImg[i] = filePath + "Installation.png";
+	// }
+	// else if(data[i].custtype=="Successful Delivery")
+	// {
+	// 	iconImg[i] = filePath + "Delivery.png";
+	// }
 	else if(data[i].custtype=="No Activity")
 	{
 		iconImg[i] = filePath + "smile.png";
@@ -154,8 +156,8 @@ function initMap(info,paramlat,paramlng,paramzoom)
 					var tagstyle = 'background:white;';
 					var eststyle = 'background:white;';
 					var wostyle = 'background:white;';
-					var instlstyle = 'background:white;';
-					var succstyle = 'background:white;';
+					// var instlstyle = 'background:white;';
+					// var succstyle = 'background:white;';
 					var noactstyle = 'background:white;';
 
 					var unasssrc = filePath + "UnassignedTransparent.png";
@@ -163,8 +165,8 @@ function initMap(info,paramlat,paramlng,paramzoom)
 					var tagsrc = filePath + "TagStoreTransparent.png";
 					var estsrc = filePath + "EstimateTransparent.png";
 					var wosrc = filePath + "WorkOrderTransparent.png";
-					var instlsrc = filePath + "InstallationTransparent.png";
-					var succsrc = filePath + "DeliveryTransparent.png";
+					// var instlsrc = filePath + "InstallationTransparent.png";
+					// var succsrc = filePath + "DeliveryTransparent.png";
 					var noactsrc = filePath + "smileTransparent.png";
 
 					switch (data[i].custtype)
@@ -185,25 +187,25 @@ function initMap(info,paramlat,paramlng,paramzoom)
 						break;
 
 						
-						case 'Estimate':
+						case 'Store Review':
 						var eststyle = 'background:#722CFD;border:none; ';
 						var estsrc = filePath + "Estimate.png";
 						break;
 
-						case 'Work Order':
+						case 'Emergency':
 						var wostyle = 'background:#FF0000;border:none; ';
 						var wosrc = filePath + "WorkOrder.png";
 						break;
 
-						case 'Installation':
-						var instlstyle  = 'background:#00BAFB; border:none;';
-						var instlsrc = filePath + "Installation.png";
-						break;
+						// case 'Installation':
+						// var instlstyle  = 'background:#00BAFB; border:none;';
+						// var instlsrc = filePath + "Installation.png";
+						// break;
 
-						case 'Successful Delivery':
-						var succstyle  = 'background:#0000FF; ';
-						var succsrc = filePath + "Delivery.png";
-						break;
+						// case 'Successful Delivery':
+						// var succstyle  = 'background:#0000FF; ';
+						// var succsrc = filePath + "Delivery.png";
+						// break;
 
 						case 'No Activity':
 						var noactstyle  = 'background:#FFFF33;border:none; ';
@@ -214,7 +216,7 @@ function initMap(info,paramlat,paramlng,paramzoom)
 
 					infowindow[i] = new google.maps.InfoWindow
 						({
-						content:"<div id='custdetails' style='width:180px;height:auto; border:none #3F691E; border:.5px solid grey; padding: 5px 0px ; border-radius:5px'> <button style='position:relative; width:170px;margin:0px 5px; height:30px; text-align:center;font-size:14px; background-color: #4E4E4E; color:white; font-weight: 300;border-radius: 10px; padding: 2px 4px ;font-family: Verdana, Geneva, Tahoma, sans-serif; border:none;' onclick='NavCust(" + data[i].custid + ")'>GO TO CUSTOMER </button> <p style='font-size:14px; border:1px solid #3F691E ; margin: 4px;padding: 4px;border-radius: 4px; font-family: Verdana, Geneva, Tahoma, sans-serif'> <b>" + markerContent[i] + "</b></br>" + data[i].custAdd + "</br>"+ data[i].custCity +"</br>"+ data[i].custState + "</br>" + data[i].storeContact + "</br></p><div style='padding: 0px 0px;width: 172px;height: auto;display: block;margin: auto;position: relative; background-color:transparent; border:none grey'> <p style='font-size: 14px; color:black;position: relative; width: 140px; text-align: center;margin:auto;padding-bottom: 2px; height:14px; font-family: Verdana, Geneva, Tahoma, sans-serif'> <b>STATUS</b> </p><div style='position:relative;margin:auto;background: transparent;padding:0% 2%'><div id='"+ data[i].custid +"unassigned' style='border: 0px solid #666666;width: 35px;height: 35px;margin: 2px 1px;border-radius: 50px;padding: 2px; ;display: inline-block;"+ unassstyle +"' onclick='changeStatus(1," + data[i].custid + "," + data[i].lat + "," + data[i].lng +")'> <img src='"+ unasssrc + "' style='height: 100%;width: 100%;'></div><div id='"+ data[i].custid +"opportunity' style='border: none ;width: 35px;height: 35px;margin: 2px 1px;border-radius: 50px;padding: 2px; ;display: inline-block; "+oppstyle+"' onclick='changeStatus(2," + data[i].custid + "," + data[i].lat + "," + data[i].lng +")'> <img src='"+ oppsrc + "' style='height: 100%;width: 100%;'></div><div id='"+ data[i].custid +"tagstore' style='border: none ;width: 35px;height: 35px;margin: 2px 1px;border-radius: 50px;padding: 2px; ;display: inline-block;"+tagstyle+"' onclick='changeStatus(3," + data[i].custid +"," + data[i].lat + "," + data[i].lng +")'> <img src='"+ tagsrc + "' style='height: 100%;width: 100%;'></div><div id='"+ data[i].custid +"estimate' style='border: none ;width: 35px;height: 35px;margin: 2px 1px;border-radius: 50px;padding: 2px; ;display: inline-block;"+eststyle+"' onclick='changeStatus(4," + data[i].custid + "," + data[i].lat + "," + data[i].lng +")'> <img src='"+ estsrc + "' style='height: 100%;width: 100%;'></div><div id='"+ data[i].custid +"workorder' style='border: none ;width: 35px;height: 35px;margin: 2px 1px;border-radius: 50px;padding: 2px; ;display: inline-block; "+wostyle+"' onclick='changeStatus(5," + data[i].custid + "," + data[i].lat + "," + data[i].lng +")'> <img src='"+ wosrc + "' style='height: 100%;width: 100%;'></div><div id='"+ data[i].custid +"installation' style='border: none ;width: 35px;height: 35px;margin: 2px 1px;border-radius: 50px;padding: 2px; ;display: inline-block; "+instlstyle+"' onclick='changeStatus(6," + data[i].custid + "," + data[i].lat + "," + data[i].lng +")'> <img src='"+ instlsrc + "' style='height: 100%;width: 100%;'></div><div id='"+ data[i].custid +"delivery' style='border: none ;width: 35px;height: 35px;margin: 2px 1px;border-radius: 50px;padding: 2px; ;display: inline-block; "+succstyle+"' onclick='changeStatus(7," + data[i].custid + "," + data[i].lat + "," + data[i].lng +")'> <img src='"+ succsrc + "' style='height: 100%;width: 100%;'></div><div id='"+ data[i].custid +"noactivity' style='border: none ;width: 35px;height: 35px;margin: 2px 1px;border-radius: 50px;padding: 2px; position:relative ;display: inline-block; "+noactstyle+"' onclick='changeStatus(8," + data[i].custid + "," + data[i].lat + "," + data[i].lng +")'> <img src='"+ noactsrc + "' style='height: 100%;width: 100%;'></div></div></div></div>"});
+						content:"<div id='custdetails' style='width:180px;height:auto; border:none #3F691E; border:.5px solid grey; padding: 5px 0px ; border-radius:5px'> <button style='position:relative; width:170px;margin:0px 5px; height:30px; text-align:center;font-size:14px; background-color: #4E4E4E; color:white; font-weight: 300;border-radius: 10px; padding: 2px 4px ;font-family: Verdana, Geneva, Tahoma, sans-serif; border:none;' onclick='NavCust(" + data[i].custid + ")'>GO TO CUSTOMER </button> <p style='font-size:14px; border:1px solid #3F691E ; margin: 4px;padding: 4px;border-radius: 4px; font-family: Verdana, Geneva, Tahoma, sans-serif'> <b>" + markerContent[i] + "</b></br>" + data[i].custAdd + "</br>"+ data[i].custCity +"</br>"+ data[i].custState + "</br>" + data[i].storeContact + "</br></p><div style='padding: 0px 0px;width: 172px;height: auto;display: block;margin: auto;position: relative; background-color:transparent; border:none grey'> <p style='font-size: 14px; color:black;position: relative; width: 140px; text-align: center;margin:auto;padding-bottom: 2px; height:14px; font-family: Verdana, Geneva, Tahoma, sans-serif'> <b>STATUS</b> </p><div style='position:relative;margin:auto;background: transparent;padding:0% 2%'><div id='"+ data[i].custid +"unassigned' style='border: 0px solid #666666;width: 35px;height: 35px;margin: 2px 1px;border-radius: 50px;padding: 2px; ;display: inline-block;"+ unassstyle +"' onclick='changeStatus(1," + data[i].custid + "," + data[i].lat + "," + data[i].lng +")'> <img src='"+ unasssrc + "' style='height: 100%;width: 100%;'></div><div id='"+ data[i].custid +"opportunity' style='border: none ;width: 35px;height: 35px;margin: 2px 1px;border-radius: 50px;padding: 2px; ;display: inline-block; "+oppstyle+"' onclick='changeStatus(2," + data[i].custid + "," + data[i].lat + "," + data[i].lng +")'> <img src='"+ oppsrc + "' style='height: 100%;width: 100%;'></div><div id='"+ data[i].custid +"tagstore' style='border: none ;width: 35px;height: 35px;margin: 2px 1px;border-radius: 50px;padding: 2px; ;display: inline-block;"+tagstyle+"' onclick='changeStatus(3," + data[i].custid +"," + data[i].lat + "," + data[i].lng +")'> <img src='"+ tagsrc + "' style='height: 100%;width: 100%;'></div><div id='"+ data[i].custid +"storereview' style='border: none ;width: 35px;height: 35px;margin: 2px 1px;border-radius: 50px;padding: 2px; ;display: inline-block;"+eststyle+"' onclick='changeStatus(4," + data[i].custid + "," + data[i].lat + "," + data[i].lng +")'> <img src='"+ estsrc + "' style='height: 100%;width: 100%;'></div><div id='"+ data[i].custid +"emergency' style='border: none ;width: 35px;height: 35px;margin: 2px 1px;border-radius: 50px;padding: 2px; ;display: inline-block; "+wostyle+"' onclick='changeStatus(5," + data[i].custid + "," + data[i].lat + "," + data[i].lng +")'> <img src='"+ wosrc + "' style='height: 100%;width: 100%;'></div><div id='"+ data[i].custid +"noactivity' style='border: none ;width: 35px;height: 35px;margin: 2px 1px;border-radius: 50px;padding: 2px; position:relative ;display: inline-block; "+noactstyle+"' onclick='changeStatus(8," + data[i].custid + "," + data[i].lat + "," + data[i].lng +")'> <img src='"+ noactsrc + "' style='height: 100%;width: 100%;'></div></div></div></div>"});
 					infowindow[i].open(mapadd, marker[i]);
 					activeInfoWin = infowindow[i];
 				     }
@@ -421,10 +423,10 @@ function changeStatus(opps, custid, lat, lng)
 	if (opps==1) opps="unassigned";
 	else if (opps==2) opps="opportunity";
 	else if (opps==3) opps="tagstore";
-	else if (opps==4) opps="estimate";
-	else if (opps==5) opps="workorder";
-	else if (opps==6) opps="installation";
-	else if (opps==7) opps="successfuldelivery";
+	else if (opps==4) opps="storereview";
+	else if (opps==5) opps="emergency";
+	// else if (opps==6) opps="installation";
+	// else if (opps==7) opps="successfuldelivery";
 	else if (opps==8) opps="noactivity";
 
 	var paramfm = opps +"~"+ custid +"~"+ lat +"~"+ lng;
