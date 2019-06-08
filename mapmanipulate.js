@@ -5,6 +5,7 @@ var fmData;
 var mapadd;
 var activeInfoWin;
 var oppType =["opportunity","tagstore","estimate","alarm"];
+var layoutName="";
 //alert("Script Loaded");
 //Work Order changed to emergency on request of Joanne 5/5/2019. Icon is not chnaged hence the same name.
 //Estimate Chnaged to Store Review on request of Joanne 5/17/2019. ICON reference is not changed hence the same name.
@@ -16,7 +17,7 @@ if(navigator.onLine==false)
 }
 
 
-function initMap(info,paramlat,paramlng,paramzoom)
+function initMap(info,paramlat,paramlng,paramzoom, layout)
 {
 //alert("Script Loaded");
 	var text = info;
@@ -28,6 +29,7 @@ function initMap(info,paramlat,paramlng,paramzoom)
 		}
 	var arr = text.split('=');
 	fileAdd = arr[0];
+	layoutName = layout;
 	for (var i=0 ; i< arr.length-1 ; i++)
 		{
 			var arr2 = arr[i+1].split('~');
@@ -429,7 +431,7 @@ function changeStatus(opps, custid, lat, lng)
 	// else if (opps==7) opps="successfuldelivery";
 	else if (opps==8) opps="noactivity";
 
-	var paramfm = opps +"~"+ custid +"~"+ lat +"~"+ lng;
+	var paramfm = opps +"~"+ custid +"~"+ lat +"~"+ lng + "~" + layoutName;
 	////alert(paramfm);
 	var scriptFM = "fmp://$/GasketApp.fmp12?script=UpdateCustomer_TriggerJS&param="+paramfm;
 	window.location.href=scriptFM;
