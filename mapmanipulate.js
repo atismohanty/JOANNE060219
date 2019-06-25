@@ -390,9 +390,16 @@ function createMarker(place) {
 // Functions for calling the Filemaker scripts
 function navigateCustomer(custid)
 {
-	var scriptFM = "fmp://$/GasketApp.fmp12?script=NavigateCustomer_TriggerJS&param="+custid;
-
-	window.location.href= scriptFM;
+	if(!layoutName)
+	{
+		var scriptFM = "fmp://$/GasketApp.fmp12?script=NavigateCustomer_TriggerJS&param="+custid;
+		window.location.href= scriptFM;
+	}
+	else
+	{
+		var scriptFM = "fmp://$/GasketApp.fmp12?script=NavigateCustomer_From_Estimate_TriggerJS&param="+custid;
+		window.location.href= scriptFM;
+	}
 }
 
 function createNewCustomer()
